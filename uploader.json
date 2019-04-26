@@ -807,6 +807,11 @@
             "symbolic_name": "oc_get_clusterrolebinding_with_config"
         },
         {
+            "command": "/usr/bin/openstack server list --all",
+            "pattern": [],
+            "symbolic_name": "openstack_server_list_all"
+        },
+        {
             "command": "/usr/bin/ovs-vsctl -t 5 get Open_vSwitch . other_config",
             "pattern": [],
             "symbolic_name": "openvswitch_other_config"
