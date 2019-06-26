@@ -654,6 +654,11 @@
             "pattern": [],
             "symbolic_name": "multipath_conf_initramfs"
         },
+	{
+            "command": "/bin/mysqladmin status",
+            "pattern": [],
+            "symbolic_name": "mysqladmin_status"
+        },
         {
             "command": "/bin/mysqladmin variables",
             "pattern": [],
