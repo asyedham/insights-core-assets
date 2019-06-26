@@ -114,11 +114,13 @@
         {
             "command": "/bin/dmesg",
             "pattern": [
+                " is now offline",
                 "Brought up ",
                 "CIFS VFS: protocol revalidation - security settings mismatch",
                 "CSUM",
                 "CVE-2017-1000364",
                 "CVE-2018-14634",
+                "Dazed and confused, but trying to continue",
                 "Device is ineligible for IOMMU domain attach due to platform RMRR requirement",
                 "Dropping TSO",
                 "EDAC ",
@@ -129,23 +131,28 @@
                 "Ignoring BGRT: failed to map image memory",
                 "Kernel page table isolation",
                 "Linux version",
+                "Machine Check Exception",
+                "Machine check events logged",
                 "NUMA: ",
                 "Node 0 CPUs: ",
                 "QLogic QLE2692 - QLogic 16Gb FC Dual-port HBA",
                 "SMBIOS ",
                 "TECH PREVIEW: NVMe over FC may not be fully supported.",
+                "Uhhuh. NMI received for unknown reason",
                 "VPD access disabled",
                 "WRITE SAME failed. Manually zeroing",
-                "blocked FC remote port time out",
+                "Warning: QLogic ISP3XXX Network Driver - this hardware has not undergone testing by Red Hat and might not be certified",
+                "blocked FC remote port time out: removing target and saving binding",
                 "crashkernel reservation failed",
                 "crashkernel=auto resulted in zero bytes of reserved memory",
                 "e1000: E1000 MODULE IS NOT SUPPORTED",
                 "fw=8.08.",
-                "is now offline",
                 "ixgbevf: Unknown parameter `InterruptThrottleRate'",
                 "mce: ",
                 "netconsole: network logging started",
                 "resetting",
+                "smpboot: CPU ",
+                "temperature above threshold",
                 "the DIE domain not a subset of the NUMA domain",
                 "tx hang",
                 "vmxnet3",
@@ -228,6 +235,11 @@
             "command": "/bin/fc-match -sv 'sans:regular:roman' family fontformat",
             "pattern": [],
             "symbolic_name": "fc_match"
+        },
+        {
+            "command": "/usr/sbin/fcoeadm -i",
+            "pattern": [],
+            "symbolic_name": "fcoeadm_i"
         },
         {
             "command": "/usr/bin/getcert list",
@@ -625,14 +637,19 @@
             "symbolic_name": "mount"
         },
         {
-            "file": "/var/opt/mssql/mssql.conf",
-            "pattern": [],
-            "symbolic_name": "mssql_conf"
-        },
-        {
             "command": "/sbin/modinfo i40e",
             "pattern": [],
             "symbolic_name": "modinfo_i40e"
+        },
+        {
+            "command": "/sbin/modinfo igb",
+            "pattern": [],
+            "symbolic_name": "modinfo_igb"
+        },
+        {
+            "command": "/sbin/modinfo ixgbe",
+            "pattern": [],
+            "symbolic_name": "modinfo_ixgbe"
         },
         {
             "command": "/sbin/modinfo vmxnet3",
@@ -837,6 +854,16 @@
             "symbolic_name": "pcs_status"
         },
         {
+            "command": "/bin/ps alxwww",
+            "pattern": [
+                "COMMAND",
+                "bash",
+                "docker",
+                "ora"
+            ],
+            "symbolic_name": "ps_alxwww"
+        },
+        {
             "command": "/bin/ps aux",
             "pattern": [
                 "/usr/bin/docker",
@@ -857,8 +884,7 @@
                 "openshift start node",
                 "phc2sys",
                 "postgres",
-                "ptp4l",
-                "tomcat"
+                "ptp4l"
             ],
             "symbolic_name": "ps_aux"
         },
@@ -882,8 +908,6 @@
                 "greenplum",
                 "httpd",
                 "iscsid",
-                "java",
-                "jboss",
                 "multipath",
                 "nfs-server",
                 "nfsd",
@@ -979,21 +1003,6 @@
             "command": "/usr/bin/subscription-manager release --show",
             "pattern": [],
             "symbolic_name": "subscription_manager_release_show"
-        },
-        {
-            "command": "/usr/bin/subscription-manager list --consumed",
-            "pattern": [],
-            "symbolic_name": "subscription_manager_list_consumed"
-        },
-        {
-            "command": "/usr/bin/subscription-manager repos --list-enabled",
-            "pattern": [],
-            "symbolic_name": "subscription_manager_repos_list_enabled"
-        },
-        {
-            "command": "/usr/bin/subscription-manager facts --list",
-            "pattern": [],
-            "symbolic_name": "subscription_manager_facts_list"
         },
         {
             "command": "/usr/sbin/ss -tupna",
@@ -1115,6 +1124,11 @@
             "command": "/usr/bin/find /var/crash /var/tmp -path '*.reports-*/whoopsie-report' -print -quit",
             "pattern": [],
             "symbolic_name": "woopsie"
+        },
+        {
+            "command": "yum -C --noplugins list installed",
+            "pattern": [],
+            "symbolic_name": "yum_list_installed"
         },
         {
             "command": "/usr/bin/yum -C repolist",
@@ -1298,6 +1312,11 @@
             "symbolic_name": "ceph_osd_log"
         },
         {
+            "file": "/proc/cgroups",
+            "pattern": [],
+            "symbolic_name": "cgroups"
+        },
+        {
             "file": "/etc/chrony.conf",
             "pattern": [],
             "symbolic_name": "chrony_conf"
@@ -1314,12 +1333,18 @@
         },
         {
             "file": "/var/log/cinder/cinder-api.log",
-            "pattern": [],
+            "pattern": [
+                "DEBUG oslo.messaging._drivers.impl_rabbit",
+                "Timed out waiting for RPC response"
+            ],
             "symbolic_name": "cinder_api_log"
         },
         {
             "file": "/var/log/containers/cinder/cinder-api.log",
-            "pattern": [],
+            "pattern": [
+                "DEBUG oslo.messaging._drivers.impl_rabbit",
+                "Timed out waiting for RPC response"
+            ],
             "symbolic_name": "cinder_api_log"
         },
         {
@@ -1330,8 +1355,10 @@
         {
             "file": "/var/log/cinder/volume.log",
             "pattern": [
+                "DEBUG oslo.messaging._drivers.impl_rabbit",
                 "Image cloning unsuccessful for image",
                 "Message: NFS file could not be discovered.",
+                "Timed out waiting for RPC response",
                 "[Errno 24] Too many open files"
             ],
             "symbolic_name": "cinder_volume_log"
@@ -1339,7 +1366,6 @@
         {
             "file": "/etc/cluster/cluster.conf",
             "pattern": [
-                "START_PROFILE",
                 "clusternode name="
             ],
             "symbolic_name": "cluster_conf"
@@ -1442,6 +1468,7 @@
         {
             "file": "/var/log/dirsrv/.*/()*(errors|errors\\.2.*)",
             "pattern": [
+                "DSRetroclPlugin - delete_changerecord: could not delete change record",
                 "We recommend to increase the entry cache size nsslapd-cachememsize"
             ],
             "symbolic_name": "dirsrv_errors"
@@ -1580,6 +1607,20 @@
             "symbolic_name": "heat_conf"
         },
         {
+            "file": "/var/log/heat/heat-api.log",
+            "pattern": [
+                "(OperationalError) (1040, 'Too many connections')"
+            ],
+            "symbolic_name": "heat_api_log"
+        },
+        {
+            "file": "/var/log/containers/heat/heat_api.log",
+            "pattern": [
+                "(OperationalError) (1040, 'Too many connections')"
+            ],
+            "symbolic_name": "heat_api_log"
+        },
+        {
             "file": "/etc/hosts",
             "pattern": [],
             "symbolic_name": "hosts"
@@ -1637,6 +1678,7 @@
                 "ModSecurity: collections_remove_stale: Failed deleting collection",
                 "Require ServerLimit > 0, setting to 1",
                 "Resource temporarily unavailable",
+                "The mpm module (prefork.c) is not supported by mod_http2",
                 "[crit] Memory allocation failed, aborting process",
                 "and would exceed the ServerLimit value of ",
                 "consider raising the MaxClients setting",
@@ -1655,12 +1697,16 @@
         },
         {
             "file": "/opt/rh/httpd24/root/etc/httpd/logs/error_log",
-            "pattern": [],
+            "pattern": [
+                "The mpm module (prefork.c) is not supported by mod_http2"
+            ],
             "symbolic_name": "httpd24_httpd_error_log"
         },
         {
             "file": "/opt/rh/jbcs-httpd24/root/etc/httpd/logs/error_log",
-            "pattern": [],
+            "pattern": [
+                "The mpm module (prefork.c) is not supported by mod_http2"
+            ],
             "symbolic_name": "jbcs_httpd24_httpd_error_log"
         },
         {
@@ -1760,11 +1806,6 @@
             "symbolic_name": "krb5"
         },
         {
-            "file": "/etc/krb5.conf.d/()*.*\\.conf",
-            "pattern": [],
-            "symbolic_name": "krb5_conf_d"
-        },
-        {
             "file": "/sys/kernel/mm/ksm/run",
             "pattern": [],
             "symbolic_name": "ksmstate"
@@ -1817,12 +1858,11 @@
                 "- image is referenced in one or more repositories",
                 "/input/input",
                 "11000 E11000 duplicate key error index: pulp_database.repo_profile_applicability.$profile_hash_-1_repo_id_-1",
-                ": Machine check events logged",
                 ": segfault at ",
                 ": session replaced: jid=",
                 "Abort command issued",
+                "Could not set",
                 "DMA Status error.  Resetting chip",
-                "Dazed and confused, but trying to continue",
                 "Detected Tx Unit Hang",
                 "Device offlined - not ready after error recovery",
                 "Error deleting EBS Disk volume aws",
@@ -1833,27 +1873,24 @@
                 "Link down",
                 "List /apis/image.openshift.io/v1/images",
                 "MDC/MDIO access timeout",
-                "Machine Check Exception",
                 "Medium access timeout failure. Offlining disk!",
                 "MountVolume.SetUp succeeded for volume",
                 "Neighbour table overflow",
                 "Orphaned pod",
                 "Out of MCCQ wrbs",
+                "Out of memory: Kill process",
                 "Out of memory: kill process",
                 "SCSI device reset on",
                 "SDN initialization failed: Error: Existing service with IP: None is not part of service network",
                 "Scheduled import of stream",
-                "Sense Key : Illegal Request [current]",
                 "TX driver issue detected, PF reset issued",
                 "TX stuck with port_enabled=1: resetting channels",
-                "Temperature above threshold",
                 "This system does not support \"SSSE3\"",
-                "Uhhuh. NMI received for unknown reason",
                 "Virtualization daemon",
                 "WRITE SAME failed. Manually zeroing",
                 "] trap divide error ",
+                "as active slave; either",
                 "belongs to docker.service",
-                "blocked FC remote port time out",
                 "callbacks suppressed",
                 "chardev: opening backend \"socket\" failed",
                 "does not seem to be present, delaying initialization",
@@ -1871,30 +1908,33 @@
                 "fiid_obj_get: 'present_countdown_value': data not available",
                 "firewalld - dynamic firewall daemon",
                 "fit failure summary on nodes : Insufficient pods",
-                "heated above trip temperature",
+                "from image service failed: rpc error: code = Canceled desc = context canceled",
                 "http2: no cached connection was available",
                 "hw csum failure",
                 "in libnl.so.1",
                 "initiating reset due to tx timeout",
                 "irq handler for vector (irq -1)",
                 "is beyond advertised capabilities",
+                "is down or the link is down",
                 "kernel: CIFS VFS: Unexpected SMB signature",
+                "kernel: Memory cgroup out of memory: Kill process",
                 "kernel: bnx2fc: byte_count",
                 "kernel: kvm: disabled by bios",
                 "kernel: lockd: Unknown symbol register_inet6addr_notifier",
                 "kernel: lockd: Unknown symbol unregister_inet6addr_notifier",
                 "kernel: megasas: Found FW in FAULT state,will reset adapter.",
+                "kernel: possible SYN flooding on port",
+                "kernel: request_module: runaway loop modprobe fs-cifs",
                 "khash_super_prune_nolock",
                 "megaraid_sas: FW detected to be in faultstate, restarting it",
                 "mode:0x20",
                 "multipathd.service operation timed out. Terminating",
                 "netlink_socket|ERR|fcntl: Too many open file",
-                "nf_conntrack: expectation table full",
-                "nf_conntrack: table full, dropping packet",
                 "nfs_reap_expired_delegations",
                 "page allocation failure",
                 "per_source_limit from",
                 "reservation conflict",
+                "returned a bad sequence-id error",
                 "segfault at",
                 "server kernel: rhsmcertd-worke",
                 "shm_open failed, Permission denied",
@@ -1914,6 +1954,11 @@
                 "watch chan error: etcdserver: mvcc: required revision has been compacted"
             ],
             "symbolic_name": "messages"
+        },
+        {
+            "file": "/var/log/mistral/executor.log",
+            "pattern": [],
+            "symbolic_name": "mistral_executor_log"
         },
         {
             "file": "/etc/()*modprobe\\.conf",
@@ -1936,9 +1981,32 @@
             "symbolic_name": "mongod_conf"
         },
         {
+            "file": "/var/opt/mssql/mssql.conf",
+            "pattern": [],
+            "symbolic_name": "mssql_conf"
+        },
+        {
             "file": "/etc/multipath.conf",
             "pattern": [],
             "symbolic_name": "multipath_conf"
+        },
+        {
+            "file": "/var/log/mysql/mysqld.log",
+            "pattern": [
+                "OpenSSL internal error, assertion failed: Digest MD5 forbidden in FIPS mode!",
+                "Too many open files",
+                "[ERROR]"
+            ],
+            "symbolic_name": "mysql_log"
+        },
+        {
+            "file": "/var/log/mysql.log",
+            "pattern": [
+                "OpenSSL internal error, assertion failed: Digest MD5 forbidden in FIPS mode!",
+                "Too many open files",
+                "[ERROR]"
+            ],
+            "symbolic_name": "mysql_log"
         },
         {
             "file": "/etc/sysconfig/netconsole",
@@ -1977,12 +2045,12 @@
             "symbolic_name": "nginx_conf"
         },
         {
-            "file": "/etc/nginx/conf.d/*",
+            "file": "/etc/nginx/conf.d/()*",
             "pattern": [],
             "symbolic_name": "nginx_conf"
         },
         {
-            "file": "/etc/nginx/default.d/*",
+            "file": "/etc/nginx/default.d/()*",
             "pattern": [],
             "symbolic_name": "nginx_conf"
         },
@@ -1992,12 +2060,12 @@
             "symbolic_name": "nginx_conf"
         },
         {
-            "file": "/etc/opt/rh/rh-nginx()*/nginx/conf.d/*",
+            "file": "/etc/opt/rh/rh-nginx()*/nginx/conf.d/()*",
             "pattern": [],
             "symbolic_name": "nginx_conf"
         },
         {
-            "file": "/etc/opt/rh/rh-nginx()*/nginx/default.d/*",
+            "file": "/etc/opt/rh/rh-nginx()*/nginx/default.d/()*",
             "pattern": [],
             "symbolic_name": "nginx_conf"
         },
@@ -2007,18 +2075,20 @@
             "symbolic_name": "nginx_conf"
         },
         {
-            "file": "/opt/rh/nginx()*/root/etc/nginx/conf.d/*",
+            "file": "/opt/rh/nginx()*/root/etc/nginx/conf.d/()*",
             "pattern": [],
             "symbolic_name": "nginx_conf"
         },
         {
-            "file": "/opt/rh/nginx()*/root/etc/nginx/default.d/*",
+            "file": "/opt/rh/nginx()*/root/etc/nginx/default.d/()*",
             "pattern": [],
             "symbolic_name": "nginx_conf"
         },
         {
             "file": "/var/log/nova/nova-api.log",
             "pattern": [
+                "DEBUG oslo.messaging._drivers.impl_rabbit",
+                "Timed out waiting for RPC response",
                 "Timed out waiting for a reply to message ID"
             ],
             "symbolic_name": "nova_api_log"
@@ -2026,6 +2096,8 @@
         {
             "file": "/var/log/containers/nova/nova-api.log",
             "pattern": [
+                "DEBUG oslo.messaging._drivers.impl_rabbit",
+                "Timed out waiting for RPC response",
                 "Timed out waiting for a reply to message ID"
             ],
             "symbolic_name": "nova_api_log"
@@ -2038,6 +2110,7 @@
                 "Attempting claim on node",
                 "Claim successful on node",
                 "Could not open ",
+                "DEBUG oslo.messaging._drivers.impl_rabbit",
                 "Detach volume",
                 "Disk of instance is too large",
                 "During sync_power_state the instance has a pending task",
@@ -2057,6 +2130,7 @@
                 "Resuming guest",
                 "Stderr: u'blockdev: cannot open",
                 "Successfully plugged vif VIFBridge",
+                "Timed out waiting for RPC response",
                 "cmt=off: Property '.cmt' not found",
                 "does not match source",
                 "error: Failed to start domain",
@@ -2067,6 +2141,7 @@
                 "libvirtError: Requested operation is not valid: domain has assigned non-USB host devices",
                 "libvirtError: Unable to delete file /var/lib/nova/instances/",
                 "unsupported configuration: Target device drive address",
+                "unsupported configuration: Target network card MTU",
                 "unsupported configuration: Unable to find security driver for model selinux"
             ],
             "symbolic_name": "nova_compute_log"
@@ -2079,6 +2154,7 @@
                 "Attempting claim on node",
                 "Claim successful on node",
                 "Could not open ",
+                "DEBUG oslo.messaging._drivers.impl_rabbit",
                 "Detach volume",
                 "Disk of instance is too large",
                 "During sync_power_state the instance has a pending task",
@@ -2098,6 +2174,7 @@
                 "Resuming guest",
                 "Stderr: u'blockdev: cannot open",
                 "Successfully plugged vif VIFBridge",
+                "Timed out waiting for RPC response",
                 "cmt=off: Property '.cmt' not found",
                 "does not match source",
                 "error: Failed to start domain",
@@ -2108,6 +2185,7 @@
                 "libvirtError: Requested operation is not valid: domain has assigned non-USB host devices",
                 "libvirtError: Unable to delete file /var/lib/nova/instances/",
                 "unsupported configuration: Target device drive address",
+                "unsupported configuration: Target network card MTU",
                 "unsupported configuration: Unable to find security driver for model selinux"
             ],
             "symbolic_name": "nova_compute_log"
@@ -2119,6 +2197,11 @@
         },
         {
             "file": "/var/lib/config-data/puppet-generated/nova/etc/nova/nova.conf",
+            "pattern": [],
+            "symbolic_name": "nova_conf"
+        },
+        {
+            "file": "/var/lib/config-data/puppet-generated/nova_libvirt/etc/nova/nova.conf",
             "pattern": [],
             "symbolic_name": "nova_conf"
         },
@@ -2192,6 +2275,11 @@
                 "pcmk_dbus_find_error"
             ],
             "symbolic_name": "pacemaker_log"
+        },
+        {
+            "file": "/proc/partitions",
+            "pattern": [],
+            "symbolic_name": "partitions"
         },
         {
             "file": "/etc/pam.d/password-auth",
@@ -2531,6 +2619,26 @@
             "symbolic_name": "ssh_foreman_proxy_config"
         },
         {
+            "file": "/etc/swift/swift.conf",
+            "pattern": [],
+            "symbolic_name": "swift_conf"
+        },
+        {
+            "file": "/var/lib/config-data/puppet-generated/swift/etc/swift/swift.conf",
+            "pattern": [],
+            "symbolic_name": "swift_conf"
+        },
+        {
+            "file": "/var/log/containers/swift/swift.log",
+            "pattern": [],
+            "symbolic_name": "swift_log"
+        },
+        {
+            "file": "/var/log/swift/swift.log",
+            "pattern": [],
+            "symbolic_name": "swift_log"
+        },
+        {
             "file": "/etc/swift/object-expirer.conf",
             "pattern": [],
             "symbolic_name": "swift_object_expirer_conf"
@@ -2579,6 +2687,11 @@
             "file": "/etc/sysconfig/ntpd",
             "pattern": [],
             "symbolic_name": "sysconfig_ntpd"
+        },
+        {
+            "file": "/etc/sysconfig/network",
+            "pattern": [],
+            "symbolic_name": "sysconfig_network"
         },
         {
             "file": "/etc/opt/rh/rh-mongodb26/sysconfig/()*mongod",
@@ -2872,6 +2985,7 @@
             "file": "/etc/neutron/neutron.conf",
             "pattern": [
                 "[",
+                "debug",
                 "dhcp_agents_per_network"
             ],
             "symbolic_name": "neutron_conf"
@@ -2880,6 +2994,7 @@
             "file": "/var/lib/config-data/puppet-generated/neutron/etc/neutron/neutron.conf",
             "pattern": [
                 "[",
+                "debug",
                 "dhcp_agents_per_network"
             ],
             "symbolic_name": "neutron_conf"
@@ -2941,9 +3056,11 @@
         {
             "file": "/var/log/neutron/l3-agent.log",
             "pattern": [
+                "DEBUG oslo.messaging._drivers.impl_rabbit",
                 "Duplicate iptables rule detected",
                 "Error while deleting router",
-                "Stderr: Another app is currently holding the xtables lock"
+                "Stderr: Another app is currently holding the xtables lock",
+                "Timed out waiting for RPC response"
             ],
             "symbolic_name": "neutron_l3_agent_log"
         },
@@ -2978,9 +3095,25 @@
             "symbolic_name": "neutron_metadata_agent_log"
         },
         {
+            "file": "/etc/neutron/plugins/ml2/ml2_conf.ini",
+            "pattern": [
+                "["
+            ],
+            "symbolic_name": "neutron_ml2_conf"
+        },
+        {
+            "file": "/var/lib/config-data/puppet-generated/neutron/etc/neutron/plugins/ml2/ml2_conf.ini",
+            "pattern": [
+                "["
+            ],
+            "symbolic_name": "neutron_ml2_conf"
+        },
+        {
             "file": "/var/log/neutron/openvswitch-agent.log",
             "pattern": [
                 "Agent main thread died of an exception",
+                "DEBUG oslo.messaging._drivers.impl_rabbit",
+                "Timed out waiting for RPC response",
                 "neutron.plugins.ml2.drivers.openvswitch.agent.openflow.native.ovs_ryuapp",
                 "u'device_owner': u'network:router_interface_distributed'"
             ],
@@ -2990,6 +3123,8 @@
             "file": "/var/log/containers/neutron/openvswitch-agent.log",
             "pattern": [
                 "Agent main thread died of an exception",
+                "DEBUG oslo.messaging._drivers.impl_rabbit",
+                "Timed out waiting for RPC response",
                 "neutron.plugins.ml2.drivers.openvswitch.agent.openflow.native.ovs_ryuapp",
                 "u'device_owner': u'network:router_interface_distributed'"
             ],
@@ -3039,8 +3174,18 @@
             "pattern": []
         },
         {
+            "glob": "/etc/krb5.conf.d/*",
+            "symbolic_name": "krb5_conf_d",
+            "pattern": []
+        },
+        {
             "glob": "/sys/fs/cgroup/cpu/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-pod[a-f0-9_]*.slice/cpu.cfs_quota_us",
             "symbolic_name": "kubepods_cpu_quota",
+            "pattern": []
+        },
+        {
+            "glob": "/var/opt/rh/rh-mysql*/log/mysql/mysqld.log",
+            "symbolic_name": "mysql_log",
             "pattern": []
         },
         {
@@ -3079,5 +3224,5 @@
     "pre_commands": {
         "iface": "/sbin/ip -o link | awk -F ': ' '/.*link\\/ether/ {print $2}'"
     },
-    "version": "2019-04-25T17:03:32.057039"
+    "version": "2019-06-20T16:10:00.182925"
 }
